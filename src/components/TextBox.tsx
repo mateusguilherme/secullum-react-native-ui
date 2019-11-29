@@ -21,6 +21,11 @@ export interface TextBoxInputProps extends TextInputProps {
   ref: (ref: TextInput) => void;
 }
 
+interface SelectionStyle {
+  start: number;
+  end?: number;
+}
+
 export interface TextBoxProperties {
   autoFocus?: boolean;
   label: string;
@@ -43,6 +48,7 @@ export interface TextBoxProperties {
   returnKeyType?: ReturnKeyTypeOptions;
   blurOnSubmit?: boolean;
   nativeID?: string;
+  selection?: SelectionStyle;
 }
 
 export class TextBox extends React.Component<TextBoxProperties> {
@@ -138,7 +144,8 @@ export class TextBox extends React.Component<TextBoxProperties> {
       ref: (input: TextInput) => {
         this.input = input;
         if (inputRef) inputRef(input);
-      }
+      },
+      selection: this.props.selection
     };
 
     return (
